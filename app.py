@@ -6,7 +6,7 @@ from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 
 from layout import getLayOut
-from model import df2
+from model import df2, counties
 from callbacks.callback import first_tab, second_tab
 
 
@@ -21,13 +21,15 @@ app.layout = getLayOut(df2)
 
 @app.callback(
     Output(component_id='graph-2', component_property='figure'),
+    Output(component_id='graph-map-2', component_property='figure'),
     [Input(component_id='category-selector-2', component_property='value'),
     Input(component_id='county-selector-2', component_property='value'),
-    Input(component_id='region-selector-2', component_property='value')
-    ],    
+    Input(component_id='region-selector-2', component_property='value'),
+    Input(component_id='type-selector-2', component_property='value')
+    ]    
 )
-def update_first_tab(card_cat, county, region):
-    return second_tab(card_cat, county, region, df2)
+def update_first_tab(card_cat, county, region, type):
+    return second_tab(card_cat, type, county, region, df2, counties)
 
 
 if __name__ == '__main__':

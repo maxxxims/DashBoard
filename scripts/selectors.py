@@ -80,18 +80,33 @@ def getSelectorsForTab2(df, pageNumber):
     region_options = df['Регион'].unique()
     region_options = np.append('Все регионы', region_options)
 
-    option_special = []
+    special_options = []
 
     for key in table:
-        option_special.append({'label': key, 'value': key})
+        special_options.append({'label': key, 'value': key})
 
     category_selector = dcc.Dropdown(
                         id='category-selector-' + pageNumber,
-                        options=option_special,
+                        options=special_options,
                         value=table[0],
                         multi=False
                                 )
 
+    table2 = ['Муниципальные бюджетные учреждения',
+                    'Муниципальные органы испольнительной власти',
+                    'Бюджетные учреждения',
+                    'Региональные органы исполнительной власти']
+
+    type_options = []
+    for key in table2:
+        type_options.append({'label': key, 'value': key})
+
+    type_selector = dcc.Dropdown(
+                        id='type-selector-' + pageNumber,
+                        options=type_options,
+                        value=table2[0],
+                        multi=False
+                                )
 
 
     county_selector = dcc.Dropdown(
@@ -108,10 +123,10 @@ def getSelectorsForTab2(df, pageNumber):
                         value='',
                         multi=False
                                 )
+    
 
 
 
 
 
-
-    return category_selector, county_selector, region_selector
+    return category_selector, county_selector, region_selector, type_selector
