@@ -34,6 +34,13 @@ def update_P2(path,sheet_name):
   return sort
 
 
+def update_P8(path, sheet_name):
+  #path = "data/Форма М1 2021.xlsx"
+  sheet_name = 'статистика по годам'
+  df = pd.read_excel(path,sheet_name = sheet_name)
+  return df
+  
+
 def update_P4(path,sheet_name):
   df = pd.read_excel(path,sheet_name = sheet_name)
   Names = ['Общественные объединения, включенные в реестр детских и молодeжных объединений, пользующихся государственной поддержкой',

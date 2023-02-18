@@ -1,4 +1,4 @@
-from scripts.selectors import getSelectorsForTab2, getSelectorsForTab4
+from scripts.selectors import getSelectorsForTab2, getSelectorsForTab4, getSelectorsForTab
 
 from dash import html
 from dash import dcc
@@ -7,8 +7,9 @@ import dash_bootstrap_components as dbc
 
 def getTab4(df, pageNumber):
     pageNumber = str(pageNumber)
-    category_selector, county_selector, region_selector, type_selector, region_selector_vs1, region_selector_vs2 = getSelectorsForTab4(df, pageNumber)
+    #category_selector, county_selector, region_selector, type_selector, region_selector_vs1, region_selector_vs2 = getSelectorsForTab4(df, pageNumber)
 
+    category_selector, county_selector, region_selector, type_selector, region_selector_vs1, region_selector_vs2 = getSelectorsForTab(df, pageNumber)
     tab2 = [
 
 

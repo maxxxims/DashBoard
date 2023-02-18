@@ -6,12 +6,6 @@ import dash_bootstrap_components as dbc
 
 
 def getTab0():
-    hints = html.Datalist( id='hints-regions', children=[
-                                html.Option(value="Example"),
-                                html.Option(value="Kray"),
-                                html.Option(value="Sgo")
-                            ])
-
     tab0 = [
         html.Div(
             [

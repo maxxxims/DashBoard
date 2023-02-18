@@ -41,10 +41,11 @@ def building_map_by_region_p2(df_map, counties):
   fig = px.choropleth_mapbox(df_map, geojson=counties, locations='Регион',
                            color = 'Суммарный показатель',
                            featureidkey = 'properties.name',
-                           color_continuous_scale="Viridis",
+                           # color_continuous_scale="Viridis",
                            mapbox_style="carto-positron",
                            zoom=2, center = {"lat": 71, "lon": 105},
                            opacity=0.5,
+                           color_continuous_scale=['#6e36ca', '#A99FE0', '#8eaf0c']
                            #labels={'unemp':'unemployment rate'}
                           )
   fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})

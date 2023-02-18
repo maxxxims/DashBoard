@@ -33,14 +33,18 @@ def update_output(n_clicks):
 @app.callback(
     Output(component_id='graph-2', component_property='figure'),
     Output(component_id='graph-map-2', component_property='figure'),
+    Output(component_id='graph-2-2', component_property='figure'),
+    Output(component_id='graph-vs-2', component_property='figure'),
     [Input(component_id='category-selector-2', component_property='value'),
     Input(component_id='county-selector-2', component_property='value'),
     Input(component_id='region-selector-2', component_property='value'),
-    Input(component_id='type-selector-2', component_property='value')
+    Input(component_id='type-selector-2', component_property='value'),
+    Input(component_id='region-selector-vs1-2', component_property='value'),
+    Input(component_id='region-selector-vs2-2', component_property='value'),
     ]    
 )
-def update_first_tab(card_cat, county, region, type):
-    return second_tab(card_cat, type, county, region, df2.getDataSet(), counties)
+def update_second_tab(card_cat, county, region, type, region1, region2):
+    return second_tab(card_cat, type, county, region, region1, region2, df2.getDataSet(), counties)
 
 
 @app.callback(
