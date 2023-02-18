@@ -1,5 +1,5 @@
 import dash
-from dash import html, dash_table
+from dash import html, dash_table, ctx
 from dash import dcc
 import plotly.express as px
 from dash.dependencies import Input, Output
@@ -13,10 +13,22 @@ from callbacks.callback import first_tab, second_tab
 app = dash.Dash(__name__,
                 external_stylesheets=[dbc.themes.BOOTSTRAP])
 
-app.layout = getLayOut(df2)
+app.layout = getLayOut(df2.getDataSet())
 
 
+@app.callback(
+    Output('container-button', 'children'),
+    Input('refresh-data', 'n_clicks'),
+)
+def update_output(n_clicks):
+    print(n_clicks)
+    if "refresh-data" == ctx.triggered_id:
+        df2.setDataSet()
+        return 'Ваши данные успешно обновленны, пожалуйста, обновите страницу'
 
+    else:
+        return 'Нажмите, чтобы обновить данные'
+    
 
 
 @app.callback(
@@ -29,7 +41,7 @@ app.layout = getLayOut(df2)
     ]    
 )
 def update_first_tab(card_cat, county, region, type):
-    return second_tab(card_cat, type, county, region, df2, counties)
+    return second_tab(card_cat, type, county, region, df2.getDataSet(), counties)
 
 
 if __name__ == '__main__':

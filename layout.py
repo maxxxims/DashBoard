@@ -9,7 +9,7 @@ import dash_bootstrap_components as dbc
 def getLayOut(df2):
     layout = html.Div(
         [
-        dbc.Row(html.H1("My Dashbord"),
+        dbc.Row(html.H1("Torch-ки"),
                 style={'margin-bottom': '40px'}),
 
         dbc.Tabs(
