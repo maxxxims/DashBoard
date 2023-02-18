@@ -49,3 +49,5 @@ def building_map_by_region_p2(df_map, counties):
                           )
   fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
   return fig
+
+

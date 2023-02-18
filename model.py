@@ -27,13 +27,35 @@ def update_P2(path,sheet_name):
     for c in columns:
       df_n[f'{new_Names[k]} ({c})'] = np.array(df.loc[df['Наименование'] == f'{Names[k]}', f'{c}'])
   df_n = df_n.fillna(0)
-  ###ДОбавление Округа(костыль)
   frame = pd.read_csv('data/d.csv', sep="\t")
   buff = [el for el in frame["Округ"]]
   sort = df_n.sort_values(['Регион'], axis=0)
   sort["Округ"] = buff
-  #sort.to_csv('data/P2.csv')
-  ###
+  return sort
+
+
+def update_P4(path,sheet_name):
+  df = pd.read_excel(path,sheet_name = sheet_name)
+  Names = ['Общественные объединения, включенные в реестр детских и молодeжных объединений, пользующихся государственной поддержкой',
+           'Объединения, включенные в перечень партнеров органа исполнительной власти, реализующего государственную молодeжную политику / работающего с молодeжью (исключая ситуации, включенные в реестр согласно Федеральному закону № 98-ФЗ)',
+           'Политические молодeжные общественные объединения',
+           'Молодeжные патрули / добровольные молодeжные дружины']
+
+  new_Names = ['Общественные объединения, включенные в реестр детских и молодeжных объединений, пользующихся государственной поддержкой',
+        'Объединения, включенные в перечень партнеров органа исполнительной власти, реализующего государственную молодeжную политику',
+        'Политические молодeжные общественные объединения',
+        'Молодeжные патрули / добровольные молодeжные дружины']
+  columns = np.array(df.columns)[5:-3]
+  df_n = pd.DataFrame()
+  df_n['Регион'] = df["Регион"].unique()
+  for k in range(len(Names)):
+    for c in columns:
+      df_n[f'{new_Names[k]} ({c})'] = np.array(df.loc[df['Наименование'] == f'{Names[k]}', f'{c}'])
+  df_n = df_n.fillna(0)
+  frame = pd.read_csv('data/d.csv', sep="\t")
+  buff = [el for el in frame["Округ"]]
+  sort = df_n.sort_values(['Регион'], axis=0)
+  sort["Округ"] = buff
   return sort
 
 class DATA:
@@ -45,11 +67,11 @@ class DATA:
 
 
     def setDataSet(self):
+        if self.number == 2:
+            self.data = update_P2(path, sheet_name=f'Р{str(self.number)}')
 
-        self.data = update_P2(path, sheet_name=f'Р{str(self.number)}')
-
-    #    if self.number == 2:
-    #        self.data = pd.read_csv("data/Р2.csv")
+        if self.number == 4:
+            self.data = update_P4(path, sheet_name=f'Р{str(self.number)}')
 
 
     def getDataSet(self):
@@ -59,11 +81,17 @@ class DATA:
 df2 = DATA(file_number=2)
 df2.setDataSet()
 
+
+df4 = DATA(file_number=4)
+df4.setDataSet()
+
 url = "https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/russia.geojson"
 counties = ''
 with urlopen(url) as response:
     counties = json.load(response)
 
+#print([1, 2, 3, 5][1:])
+#print(df4.getDataSet().head())
 #print(df2['Регион'].unique())
 
 # from scripts.graphs import amount_by_county_p2
