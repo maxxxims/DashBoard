@@ -11,24 +11,30 @@ path = "data/Форма М1 2021.xlsx"
 
 def update_P2(path,sheet_name):
   df = pd.read_excel(path,sheet_name = sheet_name)
-  Names = df["Наименование"].unique()
-#   for i in range(len(Names)):
-#     Names[i] = Names[i].replace('\n','')
+  Names = ['      региональный орган\n      исполнительной власти',
+           '      бюджетные\n      учреждения',
+           '      муниципальные\n      органы\n      испольнительной власти',
+           '      муниципальные\n      бюджетные\n      учреждения']
 
+  new_Names = ['Региональные органы исполнительной власти',
+               'Бюджетные учреждения',
+               'Муниципальные органы испольнительной власти',
+               'Муниципальные бюджетные учреждения']
   columns = np.array(df.columns)[5:]
   df_n = pd.DataFrame()
   df_n['Регион'] = df["Регион"].unique()
-  for k in Names:
+  for k in range(len(Names)):
     for c in columns:
-      df_n[f'{k} ({c})'] = np.array(df.loc[df['Наименование'] == f'{k}', f'{c}'])
+      df_n[f'{new_Names[k]} ({c})'] = np.array(df.loc[df['Наименование'] == f'{Names[k]}', f'{c}'])
   df_n = df_n.fillna(0)
+  ###ДОбавление Округа(костыль)
   frame = pd.read_csv('data/d.csv', sep="\t")
   buff = [el for el in frame["Округ"]]
   sort = df_n.sort_values(['Регион'], axis=0)
   sort["Округ"] = buff
-
+  #sort.to_csv('data/P2.csv')
+  ###
   return sort
-
 
 class DATA:
     data = []
@@ -42,8 +48,8 @@ class DATA:
 
         self.data = update_P2(path, sheet_name=f'Р{str(self.number)}')
 
-        if self.number == 2:
-            self.data = pd.read_csv("data/Р2.csv")
+    #    if self.number == 2:
+    #        self.data = pd.read_csv("data/Р2.csv")
 
 
     def getDataSet(self):

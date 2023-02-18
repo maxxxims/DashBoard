@@ -11,12 +11,6 @@ def getTab2(df, pageNumber):
 
     tab2 = [
 
-        html.Div([
-            html.Button('Обновить', id='refresh-data', n_clicks=0),
-            html.Div(id='container-button',
-             children='Нажмите, чтобы обновить данные')
-
-        ]),
 
         dbc.Row([
             dbc.Col([

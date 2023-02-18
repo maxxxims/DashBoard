@@ -12,6 +12,13 @@ def getLayOut(df2):
         dbc.Row(html.H1("Torch-ки"),
                 style={'margin-bottom': '40px'}),
 
+        html.Div([
+            html.Button('Обновить', id='refresh-data', n_clicks=0),
+            html.Div(id='container-button',
+             children='Нажмите, чтобы обновить данные')
+
+        ], style={'align': 'left'}),
+
         dbc.Tabs(
             [
                 dbc.Tab(getTab0(), label='Начальная странца'),
