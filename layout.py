@@ -17,14 +17,13 @@ def getLayOut(df1, df2):
         'height': '44px',
     }
     tab_style = {
-        'color': "#897AD6", 'width': '120px',
+        'color': "#897AD6", 'width': '127px',
         'box-shadow': 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
         'padding': '6px',
         'fontWeight': 'bold',
         'border-radius': '60px',
         'margin-right': '33px',
         'background-color': '#f9f9f9',
-        # 'border': '8px',
         'borderTop': '1px solid #897AD6',
         'borderBottom': '1px solid #897AD6',
         'borderLeft': '1px solid #897AD6',
@@ -40,7 +39,7 @@ def getLayOut(df1, df2):
         'color': 'white',
         'padding': '6px',
         'border-radius': '60px',
-        'width': '6%',
+        'width': '127px',
         'margin-right': '33px',
         'box-shadow': 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
     }
@@ -66,11 +65,11 @@ def getLayOut(df1, df2):
                 dcc.Tab(getTab0(), label='Начало', style=tab_style, selected_style=tab_selected_style),
                 dcc.Tab(getTab1(df1,1), label='Затраты', style=tab_style, selected_style=tab_selected_style),
                 dcc.Tab(getTab2(df2,2), label='Структуры', style=tab_style, selected_style=tab_selected_style),
-                dcc.Tab(getTabDefault(3), label='Просмотры', style=tab_style, selected_style=tab_selected_style),
+                #dcc.Tab(getTabDefault(3), label='Просмотры', style=tab_style, selected_style=tab_selected_style),
                 dcc.Tab(getTab4(df2, 4), label='Образование', style=tab_style, selected_style=tab_selected_style),
-                dcc.Tab(getTabDefault(5), label='Гос Органы', style=tab_style, selected_style=tab_selected_style),
-                dcc.Tab(getTabDefault(6), label='Форумы', style=tab_style, selected_style=tab_selected_style),
-                dcc.Tab(getTabDefault(7), label='Волонтерство', style=tab_style, selected_style=tab_selected_style),
+                #dcc.Tab(getTabDefault(5), label='Гос Органы', style=tab_style, selected_style=tab_selected_style),
+                #dcc.Tab(getTabDefault(6), label='Форумы', style=tab_style, selected_style=tab_selected_style),
+                #dcc.Tab(getTabDefault(7), label='Волонтерство', style=tab_style, selected_style=tab_selected_style),
                 dcc.Tab(getTab8(df2, 8), label='Статистика', style=tab_style, selected_style=tab_selected_style)
             ], style=tabs_styles),
 

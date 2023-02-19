@@ -89,12 +89,12 @@ def getTab4(df, pageNumber):
                 #                             'border-radius': '15px'}),
                 dbc.Col(
                     [
-                        dcc.Graph(id='graph-map-' + pageNumber, style={'height': '680px'}),
+                        dcc.Graph(id='graph-map-' + pageNumber, style={'height': '470px'}),
                     ], style={ 'box-shadow': 'rgba(0, 0, 0, 0.24) 0px 3px 8px', 'margin-bottom': '10px',
                                             'background-color': '#f9f9f9',
                                             'padding': '6px',
                                             'border-radius': '15px',
-                                            'position': 'absolute', 'top': '800px', 'left': '325px', 'width': '1900px',}),
+                                            'position': 'absolute', 'top': '790px', 'left': '325px', 'width': '1878px',}),
             ],),
 ########################################################################################################################
         dbc.Row(
@@ -104,28 +104,31 @@ def getTab4(df, pageNumber):
                     [
                         dbc.Col(
                             [
-                                html.Div('Регион 1'),
+                                html.Div('Регион 1', style={'margin-left': '150px'}),
                                 html.Div(region_selector_vs1,
                                          style={'width': '75%',
-                                                'margin-bottom': '40px',
-                                                'margin-right': '10px'}),
+                                                'margin-bottom': '20px',
+                                                'margin-left': '150px'}),
                             ], width={'size': 4}),
 
                         dbc.Col(
                             [
-                                html.Div('Регион 2'),
+                                html.Div('Регион 2', style={'margin-left': '580px'}),
                                 html.Div(region_selector_vs2,
-                                         style={'width': '75%',
-                                                'margin-bottom': '40px',    
-                                                'margin-right': '10px'}),
-                            ], width={'size': 4}),
-                    ], style={'margin-top': '60px', 'margin-left': '80px', 'position': 'absolute', 'top': '1500px'}),
+                                         style={'width': '38%',
+                                                'margin-bottom': '20px',
+                                                'margin-left': '580px'}),
+                            ], width={'size': 8}),
+                    ], style={'position': 'absolute', 'top': '1315px', 'box-shadow': 'rgba(0, 0, 0, 0.24) 0px 3px 8px', 'margin-bottom': '5px',
+                                            'background-color': '#f9f9f9',
+                                            'padding': '6px',
+                                            'border-radius': '15px', 'width': '1878px', 'left': '339px'}),
 
 
                 dbc.Col(
                     [
                         dcc.Graph(id='graph-vs-' + pageNumber)
-                    ], style={'position': 'absolute', 'top': '1700px', 'left': '525px', 'width': '1440px', 'z-index': 0, 'box-shadow': 'rgba(0, 0, 0, 0.24) 0px 3px 8px', 'margin-bottom': '10px',
+                    ], style={'position': 'absolute', 'top': '1450px', 'left': '325px', 'width': '1878px', 'box-shadow': 'rgba(0, 0, 0, 0.24) 0px 3px 8px', 'margin-bottom': '10px',
                                             'background-color': '#f9f9f9',
                                             'padding': '6px',
                                             'border-radius': '15px'}),

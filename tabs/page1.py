@@ -30,7 +30,7 @@ def getTab1(df, pageNumber):
                                             'background-color': '#f9f9f9',
                                             'padding': '6px',
                                             'border-radius': '15px',
-                                            'width': '63%', 'position': 'absolute', 'top': '260px', 'left': '335px', 'width': '740px', 'height': '480px',
+                                            'width': '63%', 'position': 'absolute', 'top': '260px', 'left': '335px', 'width': '740px', 'height': '100px',
                             }),
                 ]),
             dbc.Col(
@@ -51,12 +51,12 @@ def getTab1(df, pageNumber):
             [
                 dbc.Col(
                     [
-                        dcc.Graph(id='graph-map-' + pageNumber, style={'height': '680px'}),
+                        dcc.Graph(id='graph-map-' + pageNumber, style={'height': '500px'}),
                     ], style={ 'box-shadow': 'rgba(0, 0, 0, 0.24) 0px 3px 8px', 'margin-bottom': '10px',
                                             'background-color': '#f9f9f9',
                                             'padding': '6px',
                                             'border-radius': '15px',
-                                            'position': 'absolute', 'top': '800px', 'left': '325px', 'width': '1900px',}),
+                                            'position': 'absolute', 'top': '770px', 'left': '325px', 'width': '1878px',}),
             ],),
 ########################################################################################################################
         # dbc.Row(
