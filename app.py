@@ -6,14 +6,14 @@ from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 
 from layout import getLayOut
-from model import df2, df4, counties
-from callbacks.callback import first_tab, second_tab, fourth_tab
+from model import df1, df2, df4, df8, counties
+from callbacks.callback import first_tab, second_tab, fourth_tab, eight_tab
 
 
 app = dash.Dash(__name__,
                 external_stylesheets=[dbc.themes.BOOTSTRAP])
 
-app.layout = getLayOut(df2.getDataSet())
+app.layout = getLayOut(df1.getDataSet(), df2.getDataSet())
 
 
 @app.callback(
@@ -28,6 +28,15 @@ def update_output(n_clicks):
     else:
         return 'Нажмите, чтобы обновить данные'
     
+
+
+@app.callback(
+    Output(component_id='graph-map-1', component_property='figure'),
+    [Input(component_id='category-selector-1', component_property='value')
+    ]    
+)
+def update_first_tab(card_cat):
+    return first_tab(card_cat, df1.getDataSet(), counties)
 
 
 @app.callback(
@@ -61,6 +70,16 @@ def update_second_tab(card_cat, county, region, type, region1, region2):
 )
 def update_fourth_tab(card_cat, county, region, type, region1, region2):
     return fourth_tab(card_cat, type, county, region, region1, region2, df4.getDataSet(), counties)
+
+
+@app.callback(
+    Output(component_id='graph-8', component_property='figure'),
+    [Input(component_id='category-selector-8', component_property='value'),
+    ]    
+)
+def update_eight_tab(card_cat):
+    return eight_tab(df8.getDataSet(), card_cat)
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)

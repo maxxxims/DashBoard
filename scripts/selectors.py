@@ -4,69 +4,16 @@ import pandas as pd
 from dash import dcc
 
 
-def getSelectorsForTab1(df, pageNumber):
-    table = {}
-    for col in df.columns:
-        if len(df[col].unique()) <= 10:
-            temp = []
-            for k in df[col].unique():
-                temp.append({'label': k, 'value': k})
-            table[col] = temp
-    
-
-    
-    options = [{'label': 'Customer_Age', 'value': 'Customer_Age'}, 
-            {'label': 'Gender', 'value': 'Gender'},
-            {'label': 'Card_Category', 'value': 'Card_Category'}]
-
-
-    card_selector = dcc.Dropdown(
-        id='card_selector_' + pageNumber,
-        options=options,
-        value='Customer_Age',
-        multi=False
-    )
-
-
-    option_special = []
-
-    for key in table.keys():
-        option_special.append({'label': key, 'value': key})
-
-    option_category = dcc.Dropdown(
-                        id='table_columns_' + pageNumber,
-                        options=option_special,
-                        value='',
-                        multi=False
-                                )
-
-
-
-    selector = dcc.Dropdown(
-                        id='table_values_' + pageNumber,
-                        options=[],
-                        value='',
-                        multi=False
-                                )
-
-
-
-
-    age_selector = dcc.RangeSlider(
-        id="range-slider",
-        min=min(df["Customer_Age"]),
-        max=max(df["Customer_Age"]),
-        marks={25: '25', 30: '30', 35: '35', 40: '40', 45: '45', 50: '50', 55: '55', 60: '60', 65: '65', 70: '70'},
-        step=1,
-        value=[26, 73]
-    )
-
-    return card_selector, option_category, selector, age_selector
-
-
 
 def getTables(pageNumber):
     table, table2 = [], []
+
+    if int(pageNumber) ==1:
+        table = ['Бюджет СРФ, руб', 'Бюджет МО, руб', 'Кол-во грантов',
+                'Бюджет грантов, руб',
+                'Численность молодeжи, задействованной в программных мероприятиях по направлению',
+                'Количество детских и молодeжных общественных объединений, работающих по данному ']
+
 
     if int(pageNumber) == 2:
         table = ['Кол-во структур, ед',
@@ -93,6 +40,20 @@ def getTables(pageNumber):
                 'Политические молодeжные общественные объединения',
                 'Молодeжные патрули / добровольные молодeжные дружины']
         
+
+    elif int(pageNumber) == 8:
+        table = [
+                'Объем финансирования молодежной политики из бюджета СРФ',
+                'Объем финансирования молодежной политики из бюджета ОМСУ',
+                'Количество грантов, выданных физическим и юридическим лица',
+                'Объем грантовых средств, выданных физическим и юридическим лицам',
+                'Количество POO, пользующихся государственной поддержкой',
+                'Количество местных общественных объединений, пользующихся поддержкой',
+                'Количество органов молодежного самоуправления',
+                'Количество молодежных форумов, прошедших на территории СРФ',
+                'Численность участников молодежных форумов',
+                'Объем финансирования молодежных форумов из средств бюджетов СРФ',
+                'Объем финансирования молодежных форумов из средств ОМСУ']
 
     return table, table2
 
@@ -172,6 +133,27 @@ def getSelectorsForTab(df, pageNumber):
 
 
     return category_selector, county_selector, region_selector, type_selector, region_selector_vs1, region_selector_vs2
+
+
+
+def getSelectorsForTab1(df, pageNumber):
+    
+    table, _ = getTables(pageNumber)
+
+    options = []
+
+    for el in table:
+        options.append({'label': el, 'value': el})
+
+    category_selector = dcc.Dropdown(
+                        id='category-selector-' + pageNumber,
+                        options=options,
+                        value=table[0],
+                        multi=False
+                                )
+    return category_selector
+
+
 
 
 
@@ -332,3 +314,21 @@ def getSelectorsForTab4(df, pageNumber):
 
 
     return category_selector, county_selector, region_selector, type_selector, region_selector_vs1, region_selector_vs2
+
+
+
+def getSelectorForTab8(df, pageNumber):
+    table, _ = getTables(pageNumber)
+    options = []
+
+    for el in table:
+        options.append({'label': el, 'value': el})
+
+    category_selector = dcc.Dropdown(
+                        id='category-selector-' + pageNumber,
+                        options=options,
+                        value=table[0],
+                        multi=False
+                                )
+    return category_selector
+    

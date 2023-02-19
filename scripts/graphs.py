@@ -94,7 +94,7 @@ def amount_by_county_p4(data,column,county,all):
       arr.append(np.array(np.sum(np.array(data.loc[data['Округ'].isin(county), f'{i} ({column})']))))
     df_n[f'Сумма по {column}'] =  np.array(arr)
     df_n['Наименование'] = np.array(p4_short)
-    fig = px.pie(df_n, values=f'Сумма по {column}', names='Наименование', title=f'Распределение {column} по облостям',color_discrete_sequence=px.colors.sequential.RdBu)
+    fig = px.pie(df_n, values=f'Сумма по {column}', names='Наименование', title=f'Распределение {column} по облостям',color_discrete_sequence=COLOR1)
     return fig
   else:
     df_n['Наименование'] = np.array(p4)
@@ -106,7 +106,7 @@ def amount_by_county_p4(data,column,county,all):
     t = f'Распределение {column} в '+ ', '.join(county)
     fig = px.pie(df_n, values=f'Сумма по {column}', names='Наименование',
                  title=t,
-                 color_discrete_sequence=px.colors.sequential.RdBu)
+                 color_discrete_sequence=COLOR1)
     return fig
 
 
@@ -162,7 +162,7 @@ def amount_by_region_p4(data,column,county,all):
       arr.append(np.array(np.sum(np.array(data.loc[data['Округ'].isin(county), f'{i} ({column})']))))
     df_n[f'Сумма по {column}'] =  np.array(arr)
     df_n['Наименование'] = np.array(p4_short)
-    fig = px.pie(df_n, values=f'Сумма по {column}', names='Наименование', title=f'Распределение {column} по облостям',color_discrete_sequence=px.colors.sequential.RdBu)
+    fig = px.pie(df_n, values=f'Сумма по {column}', names='Наименование', title=f'Распределение {column} по облостям',color_discrete_sequence=COLOR1)
     return fig
   else:
     df_n['Наименование'] = np.array(p4)
@@ -174,7 +174,7 @@ def amount_by_region_p4(data,column,county,all):
     t = f'Распределение {column} в '+ ', '.join(county)
     fig = px.pie(df_n, values=f'Сумма по {column}', names='Наименование',
                  title=t,
-                 color_discrete_sequence=px.colors.sequential.RdBu)
+                 color_discrete_sequence=COLOR1)
     return fig
 
 
@@ -204,9 +204,9 @@ def region_comparison(data,param,region_1,region_2):
   df_n_2['Наименование'] = np.array(p4_short)
 
   fig = make_subplots(rows=1, cols=2, specs=[[{'type':'domain'}, {'type':'domain'}]])
-  fig.add_trace(go.Pie(labels=df_n_1['Наименование'], values=df_n_1[f'Сумма по {param}'], name=f"{region_1}", marker=dict(colors=COLOR1)),
+  fig.add_trace(go.Pie(labels=df_n_1['Наименование'], values=df_n_1[f'Сумма по {param}'], name=f"{region_1}",marker=dict(colors=list(reversed(COLOR1)))),
                 1, 1)
-  fig.add_trace(go.Pie(labels=df_n_2['Наименование'], values=df_n_2[f'Сумма по {param}'], name=f"{region_2}", marker=dict(colors=COLOR1)),
+  fig.add_trace(go.Pie(labels=df_n_2['Наименование'], values=df_n_2[f'Сумма по {param}'], name=f"{region_2}", marker=dict(colors=list(reversed(COLOR1)))),
                 1, 2)
   fig.update_traces(hole=.4, hoverinfo="label+percent+name")
   fig.update_layout(
@@ -261,3 +261,11 @@ def draw_horizontal_graph(data):
         plot_bgcolor='white',)
 
     return fig
+
+
+def statistics_by_year(data, chapter):
+  names = [2016, 2017, 2018, 2019, 2020, 2021]
+  arr = np.array(data.loc[data['Раздел'] == chapter, names])[0]
+  
+  fig = px.line(x=names, y=arr,title=f"{chapter}")
+  return fig

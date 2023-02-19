@@ -6,7 +6,27 @@ import json
 
 
 path = "data/Форма М1 2021.xlsx"
-#sheet_name = 'Р2'
+
+
+def update_P1(path,sheet_name):
+  df = pd.read_excel(path,sheet_name = sheet_name)
+  df = df.drop(columns=['№ строки', 'Год'])
+  df = df.fillna(0)
+  columns = np.array(df.columns[3:-2])
+  df_n = pd.DataFrame()
+  df_n['Регион'] = df["Регион"].unique()
+  for c in columns:
+    arr = []
+    for k in np.array(df["Регион"].unique()):
+      arr.append(np.sum(np.array(df.loc[df["Регион"] == k, c])))
+    df_n[c] = arr
+  df_n = df_n.fillna(0)
+  ###ДОбавление Округа(костыль)
+  frame = pd.read_csv('data/d.csv', sep="\t")
+  buff = [el for el in frame["Округ"]]
+  sort = df_n.sort_values(['Регион'], axis=0)
+  sort["Округ"] = buff
+  return sort
 
 
 def update_P2(path,sheet_name):
@@ -35,9 +55,21 @@ def update_P2(path,sheet_name):
 
 
 def update_P8(path, sheet_name):
-  #path = "data/Форма М1 2021.xlsx"
   sheet_name = 'статистика по годам'
   df = pd.read_excel(path,sheet_name = sheet_name)
+  new_names = [
+    'Объем финансирования молодежной политики из бюджета СРФ',
+    'Объем финансирования молодежной политики из бюджета ОМСУ',
+    'Количество грантов, выданных физическим и юридическим лица',
+    'Объем грантовых средств, выданных физическим и юридическим лицам',
+    'Количество POO, пользующихся государственной поддержкой',
+    'Количество местных общественных объединений, пользующихся поддержкой',
+    'Количество органов молодежного самоуправления',
+    'Количество молодежных форумов, прошедших на территории СРФ',
+    'Численность участников молодежных форумов',
+    'Объем финансирования молодежных форумов из средств бюджетов СРФ',
+    'Объем финансирования молодежных форумов из средств ОМСУ']
+  df['Раздел'] = new_names
   return df
   
 
@@ -74,11 +106,17 @@ class DATA:
 
 
     def setDataSet(self):
-        if self.number == 2:
-            self.data = update_P2(path, sheet_name=f'Р{str(self.number)}')
+      if self.number == 1:
+        self.data = update_P1(path, sheet_name=f'Р{str(self.number)}')
 
-        if self.number == 4:
-            self.data = update_P4(path, sheet_name=f'Р{str(self.number)}')
+      if self.number == 2:
+        self.data = update_P2(path, sheet_name=f'Р{str(self.number)}')
+
+      if self.number == 4:
+        self.data = update_P4(path, sheet_name=f'Р{str(self.number)}')
+
+      if self.number == 8:
+        self.data = update_P8(path, sheet_name=f'Р{str(self.number)}')
 
 
     def getDataSet(self):
@@ -92,17 +130,15 @@ df2.setDataSet()
 df4 = DATA(file_number=4)
 df4.setDataSet()
 
+df1 = DATA(file_number=1)
+df1.setDataSet()
+
+df8 = DATA(file_number=8)
+df8.setDataSet()
+
+
+
 url = "https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/russia.geojson"
 counties = ''
 with urlopen(url) as response:
     counties = json.load(response)
-
-#print([1, 2, 3, 5][1:])
-#print(df4.getDataSet().head())
-#print(df2['Регион'].unique())
-
-# from scripts.graphs import amount_by_county_p2
-
-# fig = amount_by_county_p2(df2, 'Всего кол-во сотрудников, чел', 'ЦФО', all=False)
-
-# fig.show()

@@ -1,7 +1,9 @@
+from tabs.page_default import getTabDefault
 from tabs.page1 import getTab1
 from tabs.table import getTable
 from tabs.page0 import getTab0
 from tabs.page2 import getTab2
+from tabs.page8 import getTab8
 from dash import html, dcc
 import dash_bootstrap_components as dbc
 from tabs.page4 import getTab4
@@ -10,7 +12,7 @@ from tabs.page4 import getTab4
 
 
 
-def getLayOut(df2):
+def getLayOut(df1, df2):
     tabs_styles = {
         'height': '44px',
     }
@@ -62,14 +64,14 @@ def getLayOut(df2):
         dcc.Tabs(
             [
                 dcc.Tab(getTab0(), label='Начало', style=tab_style, selected_style=tab_selected_style),
-                dcc.Tab(getTab1(1), label='Структуры', style=tab_style, selected_style=tab_selected_style),
-                dcc.Tab(getTab2(df2,2), label='Затраты', style=tab_style, selected_style=tab_selected_style),
-                dcc.Tab(getTab1(3), label='Просмотры', style=tab_style, selected_style=tab_selected_style),
+                dcc.Tab(getTab1(df1,1), label='Затраты', style=tab_style, selected_style=tab_selected_style),
+                dcc.Tab(getTab2(df2,2), label='Структуры', style=tab_style, selected_style=tab_selected_style),
+                dcc.Tab(getTabDefault(3), label='Просмотры', style=tab_style, selected_style=tab_selected_style),
                 dcc.Tab(getTab4(df2, 4), label='Образование', style=tab_style, selected_style=tab_selected_style),
-                dcc.Tab(getTab1(5), label='Гос Органы', style=tab_style, selected_style=tab_selected_style),
-                dcc.Tab(getTab1(6), label='Форумы', style=tab_style, selected_style=tab_selected_style),
-                dcc.Tab(getTab1(7), label='Волонтерство', style=tab_style, selected_style=tab_selected_style),
-                dcc.Tab(getTab1(8), label='Статистика', style=tab_style, selected_style=tab_selected_style)
+                dcc.Tab(getTabDefault(5), label='Гос Органы', style=tab_style, selected_style=tab_selected_style),
+                dcc.Tab(getTabDefault(6), label='Форумы', style=tab_style, selected_style=tab_selected_style),
+                dcc.Tab(getTabDefault(7), label='Волонтерство', style=tab_style, selected_style=tab_selected_style),
+                dcc.Tab(getTab8(df2, 8), label='Статистика', style=tab_style, selected_style=tab_selected_style)
             ], style=tabs_styles),
 
 
